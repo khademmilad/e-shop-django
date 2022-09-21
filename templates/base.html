@@ -1,12 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Shop</title>
-</head>
-<body>
-    <h1>Index</h1>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Shop Homepage - Rabinweb</title>
+    
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static '' %}css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    {% block header %} {% include 'main/header.html' %} {% endblock %}
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+        {% block content %} 
+        
+        {% endblock %}
+        </div>
+    </section>
+    {% block footer %} {% include 'main/footer.html' %} {% endblock %}
+  </body>
 </html>
