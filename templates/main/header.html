@@ -19,6 +19,7 @@
           <a class="nav-link active" aria-current="page" href="#!">Home</a>
         </li>
         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+        {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -27,15 +28,19 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            >Shop</a
+            >Welcome {{ request.user }}</a
           >
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#!">All Products</a></li>
+            <li><a class="dropdown-item" href="#!">Profile</a></li>
+            <li><a class="dropdown-item" href="#!">Edit Profile</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+            <li><a class="dropdown-item" href="#!">Log Out</a></li>
           </ul>
         </li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'account:login' %}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'account:register' %}">Register</a></li>
+        {% endif %}
       </ul>
       <form class="d-flex">
         <button class="btn btn-outline-dark" type="submit">
