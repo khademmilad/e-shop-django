@@ -31,8 +31,7 @@
             >Welcome {{ request.user }}</a
           >
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#!">Profile</a></li>
-            <li><a class="dropdown-item" href="#!">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'account:profile' user_id=request.user.id %}">Profile</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="{% url 'account:logout' %}">Log Out</a></li>
           </ul>
