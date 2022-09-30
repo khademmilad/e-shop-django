@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
-from .forms import AccountAuthenticationForm, RegistrationForm
+from .forms import AccountAuthenticationForm, RegistrationForm, AccountUpdateForm
 from .models import Account
+from django.conf import settings
 
 
 def home(request):
@@ -66,16 +67,57 @@ def logout_view(request):
     return redirect('account:home')
 
 
-def profile_view(request, *args, **kwargs):
-    context = {}
-    user_id = kwargs.get('user_id')
-    try:
-        account = Account.objects.get(pk=user_id)
-    except:
-        return HttpResponse('Somthing went wrong!')
+# def profile_view(request, *args, **kwargs):
+#     context = {}
+#     user_id = kwargs.get('user_id')
+#     try:
+#         account = Account.objects.get(pk=user_id)
+#     except:
+#         return HttpResponse('Somthing went wrong!')
     
-    print('account', account)
+#     print('account', account)
         
-    context['user'] = account
+#     context['user'] = account
 
-    return render(request, 'account/profile.html', context)
+#     return render(request, 'account/profile.html', context)
+
+
+
+def edit_account_view(request, *args, **kwrags):
+    if not request.user.is_authenticated:
+        return redirect('account:login')
+    user_id = kwrags.get('user_id')
+    account = Account.objects.get(pk=user_id)
+    
+    if account.pk != request.user.pk:
+        return HttpResponse("You cannot edit this profile")
+    dic = {}
+    if request.POST:
+        form = AccountUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('account:profile', user_id=account.pk)
+        else:
+            form = AccountUpdateForm(request.POST, instance=request.user,
+            initial={
+                'id' : account.id,
+                'email' : account.email,
+                'username' : account.username,
+                'profile_image' : account.profile_image,
+            }
+            )
+            dic['form'] = form
+    else:
+        form = AccountUpdateForm(
+            initial={
+                'id' : account.id,
+                'email' : account.email,
+                'username' : account.username,
+                'profile_image' : account.profile_image,
+            }           
+        )
+        dic['form'] = form
+        dic['user'] = account
+        
+    dic['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
+    return render(request, 'account/profile.html',dic)

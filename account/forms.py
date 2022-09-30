@@ -1,7 +1,19 @@
+from fileinput import FileInput
 from django import forms
 from django.contrib.auth import authenticate
+from django.forms import ImageField
 from .models import Account
 from django.contrib.auth.forms import UserCreationForm
+from django.forms.widgets import ClearableFileInput
+
+
+class MyClearableFileInput(ClearableFileInput):
+    template_with_initial = (
+        '%(initial_text)s: <a href="%(initial_url)s">%(initial)s</a> '
+        '%(clear_template)s<br />%(input_text)s: %(input)s'
+    )
+
+    template_with_clear = '%(clear)s <label for="%(clear_checkbox_id)s">%(clear_checkbox_label)s</label>'
 
 
 
@@ -42,3 +54,37 @@ class RegistrationForm(UserCreationForm):
         except Account.DoesNotExist:
             return username
         raise forms.ValidationError('Username "%s" is already in use.' % username)
+
+
+class AccountUpdateForm(forms.ModelForm):
+    profile_image = forms.ImageField(widget=forms.FileInput)
+    
+    class Meta:
+        model = Account
+        fields = ('username', 'email', 'profile_image')
+        
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        try:
+            account = Account.objects.exclude(pk=self.instance.pk).get(email=email)
+        except Account.DoesNotExist:
+            return email
+        raise forms.ValidationError("Email '%s' is already in use" % account)
+    
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        try:
+            account = Account.objects.exclude(pk=self.instance.pk).get(username=username)
+        except Account.DoesNotExist:
+            return username
+        raise forms.ValidationError("Username '%s' is already in use" % username)
+        
+    
+    def save(self, commit=True):
+        account = super(AccountUpdateForm, self).save(commit= False)
+        account.username = self.cleaned_data['username']
+        account.email = self.cleaned_data['email'].lower()
+        account.profile_image = self.cleaned_data['profile_image']
+        if commit:
+            account.save()
+        return account

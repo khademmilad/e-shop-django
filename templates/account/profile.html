@@ -6,11 +6,12 @@
       <div class="col-md-4 d-none d-md-block">
         <div class="card">
             <div class="card mb-4 mb-xl-0">
-                <div class="card-header">Profile Picture</div>
+                <div class="card-header">Profile Information</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                    <div class="small font-italic text-muted mb-4">{{ user }}</div>
+                    <img class="img-account-profile rounded-circle mb-2" src="{{ user.profile_image.url }}" alt="">
+                    <div class="small font-italic text-muted mb-4">Username: {{ user }}</div>
+                    <div class="small font-italic text-muted mb-2">Email: {{ user.email }}</div>
                 </div>
             </div>
           <div class="card-body">
@@ -28,23 +29,29 @@
         <div class="card">
           <div class="card-body tab-content">
             <div class="tab-pane active" id="profile">
-              <h6>YOUR PROFILE INFORMATION</h6>
+              <h6>EDIT PROFILE INFORMATION</h6>
               <hr>
 
-
-                {% comment %} <form method="post">
+              <div class="style-form">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}    
                     <div class="form-group">
-                        <input type="text" name="email" class="form-control" placeholder="Email" required="required">
+                      <label for="bio">Username</label>
+                      {{ form.username }}
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required="required">
+                      <label for="bio">Email</label>
+                      {{ form.email }}
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Log in</button>
+                      <label for="bio">Profile Image</label>
+                      {{ form.profile_image }}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Edit Profile</button>
                     </div>       
-                </form> {% endcomment %}
-
+                </form>
+              </div>
 
             </div>
           </div>
