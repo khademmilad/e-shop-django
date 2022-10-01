@@ -8,6 +8,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('account.urls')),
+    path('product/', include('product.urls')),
 
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
