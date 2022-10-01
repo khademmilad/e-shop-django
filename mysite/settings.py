@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     # myapps
     'account',
+    'product',
     
 ]
 
