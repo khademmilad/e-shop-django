@@ -23,21 +23,21 @@ def product_detail(request, prod_id):
 
 
 
-# def add_to_cart(request):
-#     if request.method == 'POST':
-#         if request.user.is_authenticated:
-#             product_id = int(request.POST.get('product_id'))
-#             product_check = Product.objects.get(id=product_id)
-#             print('product_id', product_id)
-#             if product_check:
-#                 if Cart.objects.filter(user=request.user.id, product_id=product_id):
-#                     return JsonResponse({'status': 'Course Already in Cart'})
-#                 else:
-#                     product_qyt = 1
-#                     Cart.objects.create(user=request.user, product_id=product_id, quantity=product_qyt)
-#                     return JsonResponse({'status': 'Product added successfuly'})
-#             else:
-#                 return JsonResponse({'status': 'No such Product found'})
-#         else:
-#             return JsonResponse({'status': "Login to continue"})
-#     return redirect('/')
+def add_to_cart(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            product_id = int(request.POST.get('product_id'))
+            print('product_id', product_id)
+            product_check = Product.objects.get(id=product_id)
+            if product_check:
+                if Cart.objects.filter(user=request.user.id, product_id=product_id):
+                    return JsonResponse({'status': 'Course Already in Cart'})
+                else:
+                    product_qyt = 1
+                    Cart.objects.create(user=request.user, product_id=product_id, quantity=product_qyt)
+                    return JsonResponse({'status': 'Product added successfuly'})
+            else:
+                return JsonResponse({'status': 'No such Product found'})
+        else:
+            return JsonResponse({'status': "Login to continue"})
+    return redirect('/')
