@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Checkout</h1>
+<main class="page">
+    <section class="shopping-cart dark">
+        <div class="container-shopping-cart">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                        <div class="items">
+
+                            {% for item in cart_items %}
+                                <div class="product">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img class="img-fluid mx-auto d-block image" src="{{ item.product.image.url }}">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="info">
+                                                <div class="row">
+                                                    <div class="col-md-5 product-name">
+                                                        <div class="product-name">
+                                                            <a href="{% url 'product:product_detail' prod_id=item.product.id %}">{{ item.product.title }}</a>
+                                                            {% comment %} <div class="product-info">
+                                                                <div>Display: <span class="value">5 inch</span></div>
+                                                                <div>RAM: <span class="value">4GB</span></div>
+                                                                <div>Memory: <span class="value">32GB</span></div>
+                                                            </div> {% endcomment %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 quantity">
+                                                        <label for="quantity">Quantity:</label>
+                                                        <input id="quantity" type="number" value ="1" class="form-control quantity-input">
+                                                    </div>
+                                                    <div class="col-md-3 price">
+                                                        <span>${{ item.product.price }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="summary">
+                            <h3>Summary</h3>
+                            <div class="summary-item"><span class="text">Cart Total</span><span class="price">{{ cart_total }}</span></div>
+                            <div class="summary-item"><span class="text">Total</span><span class="price">${{total_price}}</span></div>
+                            <button type="button" class="btn btn-primary btn-lg btn-block">Checkout</button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="{% static 'main/js/cart.js' %}" type="text/javascript"></script>
+{% endblock %}

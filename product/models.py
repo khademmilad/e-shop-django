@@ -60,8 +60,7 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.product.title
-
-
+        
 
 # class Payment(models.Model):
 #     user = models.ForeignKey(Account, on_delete=models.CASCADE)

@@ -41,3 +41,21 @@ def add_to_cart(request):
         else:
             return JsonResponse({'status': "Login to continue"})
     return redirect('/')
+
+
+def checkout(request):
+    context = {}
+    cart_items = Cart.objects.filter(user=request.user)
+
+    context['cart_items'] = cart_items
+    context['cart_total'] = cart_items.count()
+
+    total_price = 0
+    if cart_items:
+        for item in cart_items:
+            total_price += item.product.price
+    
+        context['total_price'] = total_price
+
+
+    return render(request, 'product/checkout.html', context)
