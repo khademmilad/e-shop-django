@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <h1>Products</h1>
 <section class="py-5">
@@ -10,7 +10,7 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
+                            <img class="card-img-top" src="{{ product.image.url }}"/>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -22,7 +22,10 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                <div class="text-center">
+                                    <a href="{% url 'product:product_detail' prod_id=product.id %}" class="btn btn-outline-dark mt-auto">view product</a>
+                                </div>                               
+                                
                             </div>
                         </div>
                     </div>
@@ -34,4 +37,6 @@
         </div>
     </div>
 </section>
+
+<script src="{% static 'main/js/cart.js' %}" type="text/javascript"></script>
 {% endblock %}
