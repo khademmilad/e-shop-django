@@ -23,6 +23,7 @@ class Product(models.Model):
     title = models.CharField(max_length=150, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField(blank=True, null=True)
+    quantity = models.IntegerField(null=False, blank=False)
     price = models.IntegerField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=get_product_image_filepath, blank=True, null=True, default=get_default_product_image)

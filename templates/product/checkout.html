@@ -12,7 +12,7 @@
 
                             {% for item in cart_items %}
                                 <div class="product">
-                                    <div class="row">
+                                    <div class="row product_data">
                                         <div class="col-md-3">
                                             <img class="img-fluid mx-auto d-block image" src="{{ item.product.image.url }}">
                                         </div>
@@ -29,10 +29,31 @@
                                                             </div> {% endcomment %}
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4 quantity">
-                                                        <label for="quantity">Quantity:</label>
-                                                        <input id="quantity" type="number" value ="1" class="form-control quantity-input">
-                                                    </div>
+                                                    <input type='hidden' class='prod_id' value="{{ item.product.id }}">
+                                                        {% csrf_token %}
+
+                                                        {% if item.product.quantity >= item.quantity %}
+                                                        <div class="col-md-4 quantity">
+                                                            
+                                                            <label for="quantity">Quantity:{{ item.quantity }}</label>
+
+                                                            <div class="input-group text-center mb-3">
+
+                                                                <button class="input-group-text changeQuantity update-cart" data-action="remove" data-product="{{ item.product.id }}">-</button>
+                                                            
+                                                                <input type="text" name="quantity" class="form-control qty-input text-center" value="{{ item.quantity }}">
+    
+                                                                <button class="input-group-text changeQuantity update-cart" data-action="add" data-product="{{ item.product.id }}">+</button>
+
+                                                            </div>
+
+                                                            {% else %}
+                                                                <h6>Out of Stock</h6>
+                                                            {% endif %}
+
+                                                        </div>
+
+
                                                     <div class="col-md-3 price">
                                                         <span>${{ item.product.price }}</span>
                                                     </div>
