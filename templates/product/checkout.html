@@ -72,7 +72,7 @@
                             <h3>Summary</h3>
                             <div class="summary-item"><span class="text">Cart Total</span><span class="price">{{ cart_total }}</span></div>
                             <div class="summary-item"><span class="text">Total</span><span class="price">${{total_price}}</span></div>
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Checkout</button>
+                            <a href="{% url 'go-to-gateway' %}" class="btn btn-primary btn-lg btn-block">Checkout</a>
                         </div>
                     </div>
                 </div> 

@@ -138,7 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 
-MERCHANT_CODE = ''
+MERCHANT_CODE = 'fc5b3f9b-7089-4cc5-a03c-fd90ac73c249'
 
 # Configuring payment
 AZ_IRANIAN_BANK_GATEWAYS = {
@@ -150,7 +150,7 @@ AZ_IRANIAN_BANK_GATEWAYS = {
    },
    'IS_SAMPLE_FORM_ENABLE': True, # اختیاری و پیش فرض غیر فعال است
    'DEFAULT': 'BMI',
-   'CURRENCY': 'IRR', # اختیاری
+   'CURRENCY': 'IRT', # اختیاری
    'TRACKING_CODE_QUERY_PARAM': 'tc', # اختیاری
    'TRACKING_CODE_LENGTH': 16, # اختیاری
    'SETTING_VALUE_READER_CLASS': 'azbankgateways.readers.DefaultReader', # اختیاری
