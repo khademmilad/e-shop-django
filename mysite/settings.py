@@ -138,7 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 
-MERCHANT_CODE = 'fc5b3f9b-7089-4cc5-a03c-fd90ac73c249'
+MERCHANT_CODE = ''
 
 # Configuring payment
 AZ_IRANIAN_BANK_GATEWAYS = {
