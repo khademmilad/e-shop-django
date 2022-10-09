@@ -12,10 +12,10 @@ $('.addToCartBtn').click(function (e){
           csrfmiddlewaretoken: token
        },
        success: function (response) {
-         // alertify.success(response.status);
+         location.reload();
        }
     })
-       
+    
  });
  
 

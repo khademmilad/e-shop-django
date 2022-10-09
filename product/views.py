@@ -55,7 +55,7 @@ def checkout(request):
     total_price = 0
     if cart_items:
         for item in cart_items:
-            total_price += item.product.price
+            total_price += (item.product.price) * item.quantity
             cart_total += item.quantity
     
         context['total_price'] = total_price
