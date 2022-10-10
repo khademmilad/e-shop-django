@@ -31,6 +31,18 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    # Model Save override for upload image
+    def save(self, *args, **kwargs):
+        if self.id is None:
+            saved_image = self.image
+            self.image = None
+            super(Product, self).save(*args, **kwargs)
+            self.image = saved_image
+            if 'force_insert' in kwargs:
+                kwargs.pop('force_insert')
+
+        super(Product, self).save(*args, **kwargs)
+
 
 class Order(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
