@@ -14,7 +14,7 @@ def home(request):
 def login_view(request, *args, **kwargs):
     user = request.user
     if user.is_authenticated:
-        return redirect("account:home")
+        return redirect("product:products")
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
         if form.is_valid():
@@ -23,7 +23,7 @@ def login_view(request, *args, **kwargs):
             user = authenticate(email=email, password=raw_password)
             if user:
                 login(request, user)
-                return redirect("account:home")
+                return redirect("product:products")
     else:
         form = AccountAuthenticationForm()
 
@@ -51,7 +51,7 @@ def register_view(request, *args, **kwargs):
             destination = kwargs.get("next")
             if destination:
                 return redirect(destination)
-            return redirect("account:home")
+            return redirect("product:products")
         else:
             context['registration_form'] = form
 
@@ -64,22 +64,7 @@ def register_view(request, *args, **kwargs):
 
 def logout_view(request):
     logout(request)
-    return redirect('account:home')
-
-
-# def profile_view(request, *args, **kwargs):
-#     context = {}
-#     user_id = kwargs.get('user_id')
-#     try:
-#         account = Account.objects.get(pk=user_id)
-#     except:
-#         return HttpResponse('Somthing went wrong!')
-    
-#     print('account', account)
-        
-#     context['user'] = account
-
-#     return render(request, 'account/profile.html', context)
+    return redirect('product:products')
 
 
 
