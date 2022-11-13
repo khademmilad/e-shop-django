@@ -1,4 +1,15 @@
 
+# Dajngo Ecommerce Website
+
+A complete ecommerce website which consists of user profiles and other modern features of an ecommerce website.
+
+
+## Hi there 😃, I am Milad Khadem
+## PROFESSION
+
+- I am a Fullstack Web Developer and content creator on Youtube. [@Rabinweb](https://www.youtube.com/c/RabinWebs/videos)
+
+
 ## Installation
 
 Install the virtual environment on ubuntu
