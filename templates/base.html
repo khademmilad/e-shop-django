@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Shop Homepage - Rabinweb</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static '' %}css/styles.css" rel="stylesheet" />
+        <link href="{% static '' %}main/form.css" rel="stylesheet" />
+        <link href="{% static '' %}main/profile.css" rel="stylesheet" />
+        <link href="{% static '' %}main/product_detail.css" rel="stylesheet" />
+        <link href="{% static '' %}main/shopping-cart.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        
+    </head>
+    <body>
+       {% block header %} {% include 'main/header.html' %} {% endblock %}
+        
+       <section class="py-2">
+        <div class="container px-4 px-lg-5 mt-5">
+        {% block content %} 
+        
+        {% endblock %}
+        </div>
+    </section>
+
+    {% block footer %} {% include 'main/footer.html' %} {% endblock %}
+
+    </body>
+</html>

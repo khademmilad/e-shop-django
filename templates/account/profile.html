@@ -1,0 +1,26 @@
+{% extends 'account/base_profile.html' %}
+
+{% block profile_content %}
+<h6>EDIT PROFILE INFORMATION</h6>
+<hr>
+<div class="style-form">
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}    
+      <div class="form-group">
+        <label for="bio">Username</label>
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        <label for="bio">Email</label>
+        {{ form.email }}
+      </div>
+      <div class="form-group">
+        <label for="bio">Profile Image</label>
+        {{ form.profile_image }}
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">Edit Profile</button>
+      </div>       
+  </form>
+</div>
+{% endblock %}

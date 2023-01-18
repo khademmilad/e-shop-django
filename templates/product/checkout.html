@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Checkout</h1>
+<main class="page">
+    <section class="shopping-cart dark">
+        <div class="container-shopping-cart">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                        <div class="items">
+
+                            {% for item in cart_items %}
+                                <div class="product">
+                                    <div class="row product_data">
+                                        <div class="col-md-3">
+                                            <img class="img-fluid mx-auto d-block image" src="{{ item.product.image.url }}">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="info">
+                                                <div class="row">
+                                                    <div class="col-md-5 product-name">
+                                                        <div class="product-name">
+                                                            <a href="{% url 'product:product_detail' prod_id=item.product.id %}">{{ item.product.title }}</a>
+                                                            {% comment %} <div class="product-info">
+                                                                <div>Display: <span class="value">5 inch</span></div>
+                                                                <div>RAM: <span class="value">4GB</span></div>
+                                                                <div>Memory: <span class="value">32GB</span></div>
+                                                            </div> {% endcomment %}
+                                                        </div>
+                                                    </div>
+                                                    <input type='hidden' class='prod_id' value="{{ item.product.id }}">
+                                                        {% csrf_token %}
+
+                                                        {% if item.product.quantity >= item.quantity %}
+                                                        <div class="col-md-4 quantity">
+                                                            
+                                                            <label for="quantity">Quantity:{{ item.quantity }}</label>
+
+                                                            <div class="input-group text-center mb-3">
+
+                                                                <button class="input-group-text changeQuantity update-cart" data-action="remove" data-product="{{ item.product.id }}">-</button>
+                                                            
+                                                                <input type="text" name="quantity" class="form-control qty-input text-center" value="{{ item.quantity }}">
+    
+                                                                <button class="input-group-text changeQuantity update-cart" data-action="add" data-product="{{ item.product.id }}">+</button>
+
+                                                            </div>
+
+                                                            {% else %}
+                                                                <h6>Out of Stock</h6>
+                                                            {% endif %}
+
+                                                        </div>
+
+
+                                                    <div class="col-md-3 price">
+                                                        <span>${{ item.product.price }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="summary">
+                            <h3>Summary</h3>
+                            <div class="summary-item"><span class="text">Cart Total</span><span class="price">{{ cart_total }}</span></div>
+                            <div class="summary-item"><span class="text">Total</span><span class="price">${{total_price}}</span></div>
+                            <a href="{% url 'go-to-gateway' %}" class="btn btn-primary btn-lg btn-block">Checkout</a>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="{% static 'main/js/cart.js' %}" type="text/javascript"></script>
+{% endblock %}

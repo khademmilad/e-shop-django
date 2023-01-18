@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="style-form">
+    <form method="post">
+        {% csrf_token %}
+        <h2 class="text-center">Login</h2>       
+        <div class="form-group">
+            <input type="text" name="email" class="form-control" placeholder="Email" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </div>
+        <div class="clearfix">
+            <a href="{% url 'password_reset' %}" class="float-right">Forgot Password?</a>
+        </div>        
+    </form>
+    <p class="text-center"><a href="{% url 'account:register' %}">Create an Account</a></p>
+</div>
+
+{% endblock %}
